@@ -1,6 +1,6 @@
 const favoriteService = require("../services/favorites-service")
 
-module.exports = (app) => {
+module.exports = (app, dynamoDB) => {
     const addFavoriteToMeal = (req, res) => {
         let info = req.body
         console.log(info)

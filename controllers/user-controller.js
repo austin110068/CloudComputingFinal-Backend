@@ -1,5 +1,4 @@
-module.exports = (app) => {
-
+module.exports = (app, dynamoDB) => {
     const UsersService = require("../services/users-service")
 
     const register = (req, res) => {
@@ -26,8 +25,8 @@ module.exports = (app) => {
     }
 
     const profile = (req, res) => {
-        const currUser = req.session['profile']
-        res.send(currUser)
+        const currUser = req.session['profile'];
+        res.send(currUser);
     }
 
     const login = (req, res) => {
@@ -62,16 +61,6 @@ module.exports = (app) => {
             console.log("logout successfully")
             res.redirect('/')
         });
-        
-        // req.user.save();
-        // req.logout();
-        // res.send("0")
-        
-        // console.log(req)
-        // req.session.destroy(() => {
-        //     req.logout()
-        //     res.redirect('/')
-        // })
     }
 
     const updateProfile = (req, res) => {
@@ -83,24 +72,13 @@ module.exports = (app) => {
         let bio = profile.bio
         let flavor = profile.flavor
         let portrait = profile.portrait
-        // let username = req.params["username"]
+
         UsersService.updateProfile(username, {email, gender, area, bio, flavor, portrait})
             .then(currProfile => {
                 console.log(currProfile)
                 res.send(currProfile)
             })
     }
-
-    // const findProfileByUsername = (req, res) => {
-    //     // let username = req.params["username"]
-    //     UsersService.findProfileByUsername()
-    //         .then(profile => res.send(profile))
-    // }
-//    const findAllFavoritesForAUser = (req, res) => {
-//        let username = req.params.username
-//        UsersService.findAllFavoritesForAUser(username)
-//            .then()
-//    }
 
     const findAllUsers = (req, res) => {
         UsersService.findAllUsers()
@@ -117,17 +95,11 @@ module.exports = (app) => {
         })
     }
 
-
     app.post('/api/users/register', register)
     app.post('/api/users/profile', profile)
     app.post('/api/users/login', login)
     app.get('/api/users/logout', logout)
     app.post('/api/users/editprofile', updateProfile)
-
     app.get('/api/users', findAllUsers)
     app.get('/api/users/:username', findUserByName)
-
-//    app.get('/api/favorites/user/:username', findAllFavoritesForAUser)
-
-    // app.get('/api/users/profile', findProfileByUsername)
 }

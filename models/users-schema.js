@@ -12,5 +12,4 @@ const userRegisterSchema = mongoose.Schema({
     portrait: String,
     favorites: [String]
 }, {collection: "users"})
-
 module.exports = userRegisterSchema

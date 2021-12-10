@@ -1,6 +1,6 @@
 const recipeService = require('../services/recipes-service')
 
-module.exports = (app) => {
+module.exports = (app, dynamoDB) => {
     app.post('/api/recipes/:name', (req, res) =>
         recipeService.createRecipe(req.params.name, req.body)
             .then(recipe => res.send(recipe)))
@@ -13,7 +13,7 @@ module.exports = (app) => {
         recipeService.findRecipe(req.params.name)
             .then(recipe => res.json(recipe)))
 
-  app.get('/api/recipes/id/:idMeal', (req, res) =>
-      recipeService.findRecipeById(req.params.idMeal)
-      .then(recipe => res.json(recipe)))
+    app.get('/api/recipes/id/:idMeal', (req, res) =>
+        recipeService.findRecipeById(req.params.idMeal)
+            .then(recipe => res.json(recipe)))
 }
