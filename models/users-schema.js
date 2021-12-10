@@ -11,10 +11,6 @@ const userRegisterSchema = mongoose.Schema({
     flavor: String,
     portrait: String,
     favorites: [String]
-    // profile: [{
-    //     type: String,
-    //     ref: 'profileModel'
-    // }]
 }, {collection: "users"})
 
 module.exports = userRegisterSchema
