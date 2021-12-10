@@ -1,4 +1,4 @@
-module.exports = (app) => {
+module.exports = (app, dynamoDB) => {
 
     const hello = (req, res) => {
         res.send('Hello World 111')
