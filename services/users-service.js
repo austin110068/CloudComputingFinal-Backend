@@ -18,7 +18,8 @@ const findUserByUsername = async (username) => {
         },
     }
 
-    return await dynamoClient.get(params).promise().catch((error) => {
+    return await dynamoClient.get(params).promise()
+        .catch((error) => {
         console.log("error finding user");
         console.log(error);
     });
@@ -29,7 +30,8 @@ const findAllUsers = async () => {
         TableName: TABLE_NAME,
     }
 
-    return await dynamoClient.scan(params).promise().catch((error) => {
+    return await dynamoClient.scan(params).promise()
+        .catch((error) => {
         console.log("error finding all users");
         console.log(error);
     });
@@ -41,7 +43,8 @@ const createUser = async (newUser) => {
         Item: newUser,
     }
 
-    return await dynamoClient.put(params).promise().catch((error) => {
+    return await dynamoClient.put(params).promise()
+        .catch((error) => {
         console.log("error creating user");
         console.log(error);
     });
@@ -50,12 +53,17 @@ const createUser = async (newUser) => {
 const findUserByCredentials = async (credentials) => {
     const params = {
         TableName: TABLE_NAME,
-        Key: {
-            username: credentials.username,
-            password: credentials.password,
-        },
+        FilterExpression : 'username = :username and password = :password',
+        ExpressionAttributeValues : {
+            ':username' : credentials.username,
+            ':password' :  credentials.password
+        }
     }
-    return await dynamoClient.get(params).promise();
+    return await dynamoClient.scan(params).promise()
+        .catch((error) => {
+            console.log("error finding user by credentials");
+            console.log(error);
+    });;
 }
 
 const updateProfile = async (userName, profile) => {
@@ -72,7 +80,8 @@ const updateProfile = async (userName, profile) => {
         },
     }
 
-    return await dynamoClient.put(params).promise().catch((error) => {
+    return await dynamoClient.put(params).promise()
+        .catch((error) => {
         console.log("error updating profile");
         console.log(error);
     });
@@ -92,6 +101,11 @@ const updateProfile = async (userName, profile) => {
 // })
 // findAllUsers();
 // findUserByUsername("testing2")
+// findUserByCredentials({
+//     username: "apple",
+//     password: "apple"
+// })
+
 // updateProfile("testing2", {
 //     email: 'updateEmail',
 //     gender: 'updateGender',

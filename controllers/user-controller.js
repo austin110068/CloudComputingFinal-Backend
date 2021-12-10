@@ -36,21 +36,18 @@ module.exports = (app, dynamoDB) => {
 
         UsersService.findUserByUsername(username)
             .then(actualUser => {
-                //"1" => user exists, but wrong password
-                if(actualUser.length > 0) {
-                    // res.send("1")
+                if (Object.keys(actualUser).length > 0) {
                     UsersService.findUserByCredentials(credentials)
                         .then(user => {
-                            if(user) {
+                            if (user) {
                                 req.session['profile'] = user
                                 res.send(user)
                             } else {
-                                res.send("1")
+                                res.send("User exists, but wrong password");
                             }
                         })
                 } else {
-                    //"0" => user not exists
-                    res.send("0")
+                    res.send("User not exists");
                 }
             })
     }
