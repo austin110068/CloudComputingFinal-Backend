@@ -1,4 +1,4 @@
-module.exports = (app, dynamoDB) => {
+module.exports = (app) => {
     const UsersService = require("../services/users-service")
 
     const register = (req, res) => {
@@ -72,15 +72,15 @@ module.exports = (app, dynamoDB) => {
 
         UsersService.updateProfile(username, {email, gender, area, bio, flavor, portrait})
             .then(currProfile => {
-                console.log(currProfile)
-                res.send(currProfile)
+                console.log(currProfile);
+                res.send(currProfile);
             })
     }
 
     const findAllUsers = (req, res) => {
         UsersService.findAllUsers()
         .then((users) => {
-            res.send(users)
+            res.send(users);
         })
     }
 
@@ -88,7 +88,7 @@ module.exports = (app, dynamoDB) => {
         const username = req.params['username']
         UsersService.findUserByUsername(username)
         .then((user) => {
-            res.send(user)
+            res.send(user);
         })
     }
 
