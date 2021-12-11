@@ -41,9 +41,9 @@ app.use(function (req, res, next) {
 });
 
 
-require('./controllers/demos.controller')(app, dynamoDB)
-require('./controllers/user-controller')(app, dynamoDB)
-require('./controllers/recipes-controller')(app, dynamoDB)
-require('./controllers/favorites-controller')(app, dynamoDB)
+require('./controllers/demos.controller')(app)
+require('./controllers/user-controller')(app)
+require('./controllers/recipes-controller')(app)
+require('./controllers/favorites-controller')(app)
 
 app.listen(process.env.PORT || 4000)
