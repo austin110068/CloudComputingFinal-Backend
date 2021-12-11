@@ -38,7 +38,7 @@ module.exports = (app, dynamoDB) => {
     }
 
     const findFavoriteForUserAndMealID = (req, res) => {
-            let recipeId = req.params.mealId
+        let recipeId = req.params.mealId
         let username = req.params.username
         return favoriteService.findFavoriteForUserAndMealID({recipeId: recipeId, username: username})
             .then(favo => {
