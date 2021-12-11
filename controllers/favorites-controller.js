@@ -1,6 +1,6 @@
 const favoriteService = require("../services/favorites-service")
 
-module.exports = (app, dynamoDB) => {
+module.exports = (app) => {
     const addFavoriteToMeal = (req, res) => {
         let info = req.body
         console.log(info)
@@ -48,9 +48,9 @@ module.exports = (app, dynamoDB) => {
     }
 
     const deleteFavoriteForUserAndMealID = (req, res) => {
-        let recipeId = req.params.mealId
-        let username = req.params.username
-        return favoriteService.deleteFavorite({recipeId: recipeId, username: username})
+        let recipeId = req.params.mealId;
+        let username = req.params.username;
+        return favoriteService.deleteFavorite({recipeId: recipeId, username: username});
         // .then(favo => {
         //     res.send(favo)
         // })

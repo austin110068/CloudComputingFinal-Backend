@@ -15,18 +15,16 @@ const TABLE_NAME = 'favorites';
 const findAllUsersForAFavorite = async (recipeId) => {
     const params = {
         TableName: TABLE_NAME,
-        key: {
+        Key: {
             recipeId
         },
     }
 
     return await dynamoClient.get(params).promise()
         .catch((error) => {
-            console.log("error favorite");
+            console.log("error findAllUsersForAFavorite");
             console.log(error);
     });
-    // return favoritesModel.find({recipeId: recipeId})
-    // .populate('favorites').exec()
 }
 
 const addFavoriteToMeal = async (info) => {
@@ -51,35 +49,32 @@ const addFavoriteToMeal = async (info) => {
 const findAllFavoritesForAUser = async (username) => {
     const params = {
         TableName: TABLE_NAME,
-        key: {
+        Key: {
            username
         },
     }
 
     return await dynamoClient.get(params).promise()
         .catch((error) => {
-            console.log("error favorite");
+            console.log("error findAllFavoritesForAUser");
             console.log(error);
         });
-    // return favoritesModel.find({username: username})
-    //     .populate('favorites').exec()
 }
 
 const findAllFavorites = async () => {
     const params = {
         TableName: TABLE_NAME,
     }
-
+    console.log("asdasdas")
     return await dynamoClient.scan(params).promise()
         .catch(e => {
-        console.log("error finding all users");
+        console.log("error finding all favorites");
         console.log(e);
         })
-
-    // return favoritesModel.find()
 }
 
 const findFavoriteForUserAndMealID = async (info) => {
+    console.log("findFavoriteForUserAndMealID")
     const params = {
         TableName: TABLE_NAME,
         FilterExpression : 'username = :username and recipeId = :recipeId',
@@ -94,10 +89,10 @@ const findFavoriteForUserAndMealID = async (info) => {
             console.log("error finding favorite by user and meal id");
             console.log(error);
     });;
-    // return favoritesModel.findOne(info)
 }
 
 const deleteFavorite = async (info) => {
+    console.log("deleteFavorite: ", info);
     const params = {
         TableName: TABLE_NAME,
         FilterExpression : 'username = :username and recipeId = :recipeId',
@@ -113,9 +108,8 @@ const deleteFavorite = async (info) => {
             console.log(error);
         });;
 }
-    // favoritesModel.deleteOne(info)
-
-
+    
+// favoritesModel.deleteOne(info)
 
 module.exports = {
     findAllUsersForAFavorite,
