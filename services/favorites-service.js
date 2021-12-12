@@ -93,9 +93,8 @@ const deleteFavorite = async (info) => {
     const params = {
         TableName: TABLE_NAME,
         Key: {
-            // 'username' : info.username,
-            // 'recipeId' : info.recipeId
-            info
+            'username' : info.username,
+            'recipeId' : info.recipeId
         }
     }
 
