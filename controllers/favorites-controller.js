@@ -18,7 +18,8 @@ module.exports = (app) => {
     }
 
     const findAllFavoritesForAUser = (req, res) => {
-        let username = req.params.username
+        let username = req.params.username;
+    
         favoriteService.findAllFavoritesForAUser(username)
             .then(favo => {
                 res.send(favo)

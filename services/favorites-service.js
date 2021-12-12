@@ -47,12 +47,13 @@ const addFavoriteToMeal = async (info) => {
 const findAllFavoritesForAUser = async (username) => {
     const params = {
         TableName: TABLE_NAME,
-        Key: {
-           username
-        },
+        FilterExpression : 'username = :username',
+        ExpressionAttributeValues : {
+            ':username' : username,
+        }
     }
 
-    return await dynamoClient.get(params).promise()
+    return await dynamoClient.scan(params).promise()
         .catch((error) => {
             console.log("error findAllFavoritesForAUser");
             console.log(error);
