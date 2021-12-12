@@ -30,20 +30,17 @@ const findAllUsersForAFavorite = async (recipeId) => {
 const addFavoriteToMeal = async (info) => {
     const params = {
         TableName: TABLE_NAME,
-        FilterExpression : 'username = :username and recipeId = :recipeId',
-        ExpressionAttributeValues : {
-            ':username' : info.username,
-            ':recipeId' :  info.recipeId
+        Item: {
+            username: info.username,
+            recipeId: info.recipeId,
         }
     }
 
-    return await dynamoClient.scan(params).promise()
+    return await dynamoClient.put(params).promise()
         .catch((error) => {
-            console.log("error finding favorite by user and meal id");
+            console.log("error addFavoriteToMeal");
             console.log(error);
         });;
-    // console.log(info)
-    // return favoritesModel.create(info)
 }
 
 const findAllFavoritesForAUser = async (username) => {
@@ -65,7 +62,7 @@ const findAllFavorites = async () => {
     const params = {
         TableName: TABLE_NAME,
     }
-    console.log("asdasdas")
+    
     return await dynamoClient.scan(params).promise()
         .catch(e => {
         console.log("error finding all favorites");
@@ -74,7 +71,7 @@ const findAllFavorites = async () => {
 }
 
 const findFavoriteForUserAndMealID = async (info) => {
-    console.log("findFavoriteForUserAndMealID")
+    console.log("findFavoriteForUserAndMealID: ", info);
     const params = {
         TableName: TABLE_NAME,
         FilterExpression : 'username = :username and recipeId = :recipeId',
@@ -95,10 +92,10 @@ const deleteFavorite = async (info) => {
     console.log("deleteFavorite: ", info);
     const params = {
         TableName: TABLE_NAME,
-        FilterExpression : 'username = :username and recipeId = :recipeId',
-        ExpressionAttributeValues : {
-            ':username' : info.username,
-            ':recipeId' :  info.recipeId
+        Key: {
+            // 'username' : info.username,
+            // 'recipeId' : info.recipeId
+            info
         }
     }
 

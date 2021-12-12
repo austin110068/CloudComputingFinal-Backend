@@ -31,7 +31,6 @@ const findRecipeById = (id) => {
     return recipesModel.find({_id: id})
 }
 
-
 const deleteRecipe = (name, recipe) =>
     recipesModel.deleteOne({strMeal: name})
 
