@@ -3,10 +3,8 @@ const favoriteService = require("../services/favorites-service")
 module.exports = (app) => {
     const addFavoriteToMeal = (req, res) => {
         let info = req.body
-        console.log("add favorite to meal:", info);
         favoriteService.addFavoriteToMeal(info)
             .then(favorite => {
-                console.log("favorite: ", favorite)
                 res.send(favorite)
             })
     }
@@ -15,7 +13,6 @@ module.exports = (app) => {
         let recipeId = req.params.mealId
         favoriteService.findAllUsersForAFavorite(recipeId)
         .then(favo => {
-            // console.log(favo)
             res.send(favo)
         })
     }
@@ -24,7 +21,6 @@ module.exports = (app) => {
         let username = req.params.username
         favoriteService.findAllFavoritesForAUser(username)
             .then(favo => {
-                console.log("findAllFavoritesForAUser", favo);
                 res.send(favo)
             })
     }
@@ -32,7 +28,6 @@ module.exports = (app) => {
     const findAllFavorites = (req, res) => {
         return favoriteService.findAllFavorites()
             .then(favo => {
-                console.log("findAllFavorites: ", favo);
                 res.send(favo)
             })
     }
@@ -42,7 +37,6 @@ module.exports = (app) => {
         let username = req.params.username
         return favoriteService.findFavoriteForUserAndMealID({recipeId: recipeId, username: username})
             .then(favo => {
-                console.log("findFavoriteForUserAndMealID: ", favo);
                 res.send(favo)
             })
     }
@@ -51,9 +45,6 @@ module.exports = (app) => {
         let recipeId = req.params.mealId;
         let username = req.params.username;
         return favoriteService.deleteFavorite({recipeId: recipeId, username: username});
-        // .then(favo => {
-        //     res.send(favo)
-        // })
     }
 
 

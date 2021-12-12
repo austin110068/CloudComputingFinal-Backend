@@ -15,12 +15,13 @@ const TABLE_NAME = 'favorites';
 const findAllUsersForAFavorite = async (recipeId) => {
     const params = {
         TableName: TABLE_NAME,
-        Key: {
-            recipeId
-        },
+        FilterExpression : 'recipeId = :recipeId',
+        ExpressionAttributeValues : {
+            ':recipeId' : recipeId
+        }
     }
 
-    return await dynamoClient.get(params).promise()
+    return await dynamoClient.scan(params).promise()
         .catch((error) => {
             console.log("error findAllUsersForAFavorite");
             console.log(error);
